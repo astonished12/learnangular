@@ -7,9 +7,17 @@ import { User } from '../../models/User';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  user: User = {
+    firstName: '',
+    lastName: '',
+    email: '',
+
+  }
   users: User[];
   showExtended: boolean = true;
   loaded: boolean = false;
+  enableAdd: boolean = false;
+  showUserForm: boolean = false;
 
   constructor() { }
 
@@ -19,45 +27,61 @@ export class UsersComponent implements OnInit {
       {
         firstName: 'John',
         lastName: 'Doe',
-        age: 30,
-        address: {
-          street: 'Strada varius',
-          city: 'Vaslui'
-        }
+        email: 'johndog@cat.com',
+        isActive: true,
+        registered: new Date('01/02/2018 08:30:00'),
+        hide: true
       },
       {
         firstName: 'Kevin',
         lastName: 'Jhonson',
-        age: 34,
-        address: {
-          street: 'Strada varius asdasdsa',
-          city: 'Vaslui 1'
-        }
+        email: 'kevin@the.carrot',
+        isActive: false,
+        registered: new Date('11/02/2019 08:30:00'),
+        hide: true
       },
 
       {
         firstName: 'Dorel',
         lastName: 'Jianu',
-        age: 34,
-        address: {
-          street: 'Langa garla',
-          city: 'Vaslui 2'
-        }
+        email: 'dorel@planteaza.com',
+        isActive: true,
+        registered: new Date('01/02/2018 08:31:00'),
+        hide: true
+
       },
     ]
 
     this.loaded = true;
-    this.showExtended = true;
-
-    this.addUser({
-      firstName: 'Ionutz',
-      lastName: 'Doe',
-    });
 
   }
 
-  addUser(user: User) {
-    this.users.push(user);
+  /* addUser() {
+    this.user.isActive = true;
+    this.user.registered = new Date();
+    this.users.unshift(this.user);
+
+    this.user = {
+      firstName: '',
+      lastName: '',
+      email: ''
+    }
+  } */
+  /* 
+    toggleHide(user: User){
+      user.hide = !user.hide;
+    } */
+
+  onSubmit(e) {
+    console.log("1231232121312");
+
+    e.preventDefault();
   }
 
+  fireEvent(e) {
+    console.log(e.target.value);
+    console.log(e.type);
+
+
+  }
 }
