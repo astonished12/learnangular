@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../models/User';
+import { DataService } from '../../services/data.service';
+
 
 @Component({
   selector: 'app-users',
@@ -11,47 +13,27 @@ export class UsersComponent implements OnInit {
     firstName: '',
     lastName: '',
     email: '',
-
   }
+
   users: User[];
   showExtended: boolean = true;
   loaded: boolean = false;
   enableAdd: boolean = false;
   showUserForm: boolean = false;
 
-  constructor() { }
+  @ViewChild('userForm') form: any;
+  data: any;
+
+  constructor(private dataService: DataService) {
+
+  }
 
   ngOnInit() {
-
-    this.users = [
-      {
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'johndog@cat.com',
-        isActive: true,
-        registered: new Date('01/02/2018 08:30:00'),
-        hide: true
-      },
-      {
-        firstName: 'Kevin',
-        lastName: 'Jhonson',
-        email: 'kevin@the.carrot',
-        isActive: false,
-        registered: new Date('11/02/2019 08:30:00'),
-        hide: true
-      },
-
-      {
-        firstName: 'Dorel',
-        lastName: 'Jianu',
-        email: 'dorel@planteaza.com',
-        isActive: true,
-        registered: new Date('01/02/2018 08:31:00'),
-        hide: true
-
-      },
-    ]
-
+  
+    this.dataService.getUsers().subscribe(users => {
+        this.users = users;
+        this.loaded = true;
+    })
     this.loaded = true;
 
   }
@@ -72,16 +54,21 @@ export class UsersComponent implements OnInit {
       user.hide = !user.hide;
     } */
 
-  onSubmit(e) {
-    console.log("1231232121312");
+  onSubmit({ value, valid }: { value: User, valid: boolean }) {
+    if (!valid) {
+      console.log('Form is not valid');
 
-    e.preventDefault();
+    }
+    else {
+      value.isActive = true;
+      value.registered = new Date();
+      value.hide = true;
+
+      //Mapped user from form
+      this.dataService.addUser(value);
+
+      this.form.reset();
+    }
   }
 
-  fireEvent(e) {
-    console.log(e.target.value);
-    console.log(e.type);
-
-
-  }
 }
