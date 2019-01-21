@@ -18,8 +18,8 @@ const routes: Routes = [
   { path: 'client/add', component: AddClientComponent },
   { path: 'clients/edit/:id', component: EditClientComponent },
   { path: 'clients/:id', component: ClientDetailsComponent },
-  { path: 'settings',component:SettingsComponent},
-  { path: '**',component:NotFoundComponent},
+  { path: 'settings', component: SettingsComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
