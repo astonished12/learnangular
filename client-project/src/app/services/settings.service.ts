@@ -7,14 +7,21 @@ import { Settings } from '../models/Settings';
 })
 export class SettingsService {
   settings: Settings = {
-    allowRegistration: false,
-    disableBalanceOnAdd: false,
-    disableBalanceOnEdit: false,
-
+    allowRegistration: true,
+    disableBalanceOnAdd: true,
+    disableBalanceOnEdit: true,
   }
-  constructor() { }
+  constructor() {
+    if(localStorage.getItem('settings') != null){
+      this.settings = JSON.parse(localStorage.getItem('settings'));
+    }
+   }
 
   getSettings(): Settings {
     return this.settings;
+  }
+
+  changeSettings(settings: Settings){
+    localStorage.setItem('settings', JSON.stringify(settings));
   }
 }
