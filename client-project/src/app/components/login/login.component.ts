@@ -19,27 +19,27 @@ export class LoginComponent implements OnInit {
     private flashmessage: FlashMessagesService) { }
 
   ngOnInit() {
-      this.authService.getAuth().subscribe(auth=>{
-        if(auth){
-          this.router.navigate(['/']);
-                }
-      })
+    this.authService.getAuth().subscribe(auth => {
+      if (auth) {
+        this.router.navigate(['/']);
+      }
+    })
   }
 
   onSubmit() {
     this.authService.login(this.email, this.password)
-    .then(res => {
-      this.flashmessage.show('You are now logged in', {
-        cssClass: 'alert-success', timeout: 4000
-      });
+      .then(res => {
+        this.flashmessage.show('You are now logged in', {
+          cssClass: 'alert-success', timeout: 4000
+        });
 
-      this.router.navigate(['/'])
-    })
-    .catch(err => {
-      this.flashmessage.show(err, {
-        cssClass: 'alert-danger', timeout: 4000
-      });
+        this.router.navigate(['/'])
+      })
+      .catch(err => {
+        this.flashmessage.show(err, {
+          cssClass: 'alert-danger', timeout: 4000
+        });
 
-    })
+      })
   }
 }
