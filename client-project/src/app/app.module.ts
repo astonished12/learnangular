@@ -23,6 +23,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
+import { ClientService } from './services/client.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
       'clientpanel'),
     AngularFireAuthModule             
   ],
-  providers: [AngularFirestore],
+  providers: [AngularFirestore,ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
