@@ -18,6 +18,7 @@ export class ClientService {
     this.clientsCollection = this.afs.collection('clients', ref => ref.orderBy('lastName', 'asc'));
   }
 
+  //BIG CHUNGUS FUNCTION
   getClients(): Observable<Client[]> {
     this.clients = this.clientsCollection.snapshotChanges()
     .map(changes => {
@@ -29,5 +30,9 @@ export class ClientService {
     })
 
     return this.clients;
+  }
+
+  newClient(client: Client){
+    this.clientsCollection.add(client);
   }
 }
